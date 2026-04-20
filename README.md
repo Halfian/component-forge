@@ -15,10 +15,10 @@
 
 ## Tech Stack
 
-    ![React](https://img.shields.io/badge/React-20232A?logo=react&logoColor=61DAFB)
-    ![Vite](https://img.shields.io/badge/Vite-646CFF?logo=vite&logoColor=white)
-    ![TailwindCSS](https://img.shields.io/badge/TailwindCSS-38B2AC?logo=tailwind-css&logoColor=white)
-    ![Zustand](https://img.shields.io/badge/Zustand-000000?logo=react&logoColor=white)
+![React](https://img.shields.io/badge/React-20232A?logo=react&logoColor=61DAFB)
+![Vite](https://img.shields.io/badge/Vite-646CFF?logo=vite&logoColor=white)
+![TailwindCSS](https://img.shields.io/badge/TailwindCSS-38B2AC?logo=tailwind-css&logoColor=white)
+![Zustand](https://img.shields.io/badge/Zustand-000000?logo=react&logoColor=white)
 
     - React + vite for it's fast setup
     - TailwindCSS v4 for styling with responsive design
