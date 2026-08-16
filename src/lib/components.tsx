@@ -1,4 +1,10 @@
-export const componentLibrary = [
+export type ComponentLibraryItem = {
+    id: string;
+    label: string,
+    preview: React.ReactNode;
+}
+
+export const componentLibrary: ComponentLibraryItem[] = [
     {
         id: "button",
         label: "Button",

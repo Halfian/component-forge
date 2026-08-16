@@ -1,4 +1,10 @@
-export default function FourSideInput({ label, styles, onChange }) {
+export type FourSideInputProps = {
+    label: string;
+    styles: Record<string, string | number>;
+    onChange: (prop: string, value: string | number) => void;
+};
+
+export default function FourSideInput({ label, styles, onChange }: FourSideInputProps) {
     return (
         <div className="mb-3">
             <div className="text-xs opacity-70 mb-1">{label}</div>
@@ -36,7 +42,7 @@ export default function FourSideInput({ label, styles, onChange }) {
     );
 };
 
-function normalizePx(value) {
+function normalizePx(value: string): string {
     if (!value) return "";
     const trimmed = value.trim();
 
@@ -46,7 +52,7 @@ function normalizePx(value) {
         return trimmed;
     }
 
-    if (!isNaN(trimmed)) {
+    if (!isNaN(Number(trimmed))) {
         return trimmed + "px";
     }
 

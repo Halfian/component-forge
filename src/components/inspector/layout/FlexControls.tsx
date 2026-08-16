@@ -1,4 +1,9 @@
-export default function FlexControls({ styles, onChange }) {
+export type FlexControlsProp = {
+    styles: Record<string, string | number>;
+    onChange: (prop: string, value: string | number) => void;
+}
+
+export default function FlexControls({ styles, onChange }: FlexControlsProp) {
     if (styles.display !== "flex") return null;
 
     return (

@@ -1,8 +1,13 @@
 import { useState } from "react";
-import { componentLibrary } from "../lib/components.jsx";
+import { componentLibrary } from "../lib/components.js";
+import type { ComponentLibraryItem } from "../lib/components.js";
 
-export default function Sidebar({ onDragStart }) {
-    const [query, setQuery] = useState("");
+export interface SidebarProps {
+    onDragStart: (e: React.PointerEvent<HTMLDivElement>, item: ComponentLibraryItem) => void;
+}
+
+export default function Sidebar({ onDragStart }: SidebarProps) {
+    const [query, setQuery] = useState<string>("");
 
     const filtered = componentLibrary.filter((c) => c.label.toLowerCase().includes(query.toLowerCase()))
 

@@ -1,19 +1,22 @@
-import { useCanvasStore } from "../../store/canvasStore";
-import { defaultStyles } from "../../constants/defaultStyles";
-import Section from "./Section";
-import ResetButton from "./ResetButton";
-import DisplayInput from "./layout/DisplayInput";
-import FlexControls from "./layout/FlexControls";
-import SizeInput from "./layout/SizeInput";
-import FourSideInput from "./spacing/FourSideInput";
-import ColorInput from "./appearance/ColorInput";
-import BorderInput from "./border/BorderInput";
-import RadiusInput from "./border/RadiusInput";
-import FontSizeInput from "./typography/FontSizeInput";
-import FontWeightInput from "./typography/FontWeightInput";
-import TextAlignInput from "./typography/TextAlignInput";
-import LineHeightInput from "./typography/LineHeightInput";
-import LetterSpacingInput from "./typography/LetterSpacingInput";
+import { useCanvasStore } from "../../store/canvasStore.js";
+import { defaultStyles } from "../../constants/defaultStyles.js";
+import Section from "./Section.js";
+import ResetButton from "./ResetButton.js";
+import DisplayInput from "./layout/DisplayInput.js";
+import FlexControls from "./layout/FlexControls.js";
+import SizeInput from "./layout/SizeInput.js";
+import FourSideInput from "./spacing/FourSideInput.js";
+import ColorInput from "./appearance/ColorInput.js";
+import BorderInput from "./border/BorderInput.js";
+import RadiusInput from "./border/RadiusInput.js";
+import FontSizeInput from "./typography/FontSizeInput.js";
+import FontWeightInput from "./typography/FontWeightInput.jsx";
+import TextAlignInput from "./typography/TextAlignInput.js";
+import LineHeightInput from "./typography/LineHeightInput.js";
+import LetterSpacingInput from "./typography/LetterSpacingInput.js";
+import type { Node } from "../../store/canvasStore.js";
+
+
 
 export default function Inspector() {
     const present = useCanvasStore((s) => s.present);
@@ -21,7 +24,7 @@ export default function Inspector() {
     const tree = present.tree;
     const updateNode = useCanvasStore((s) => s.updateNode);
 
-    const node = tree.find(n => n.id === selectedId);
+    const node: Node | undefined = tree.find(n => n.id === selectedId);
 
     if (!node) {
         return (
@@ -31,9 +34,9 @@ export default function Inspector() {
         );
     }
 
-    function updateProp(key, value) {
-        updateNode(node.id, {
-            props: { ...node.props, [key]: value},
+    function updateProp(key: string, value: string) {
+        updateNode(node!.id, {
+            props: { ...node!.props, [key]: value},
         });
     }
 
@@ -51,13 +54,14 @@ export default function Inspector() {
             <div>
                 <p className="opacity-70 mb-1">Props</p>
 
-                {Object.keys(node.props).map((key) => (
+                {Object.entries(node!.props ?? {}).map(([key, value]) => (
                     <div key={key} className="mb-2">
                         <label className="block text-xs opacity-70 mb-1">{key}</label>
                         <input
-                            className="w-full px-2 py-1 bg-neutral-800 border border-neutral-700 rounded"
-                            value={node.props[key]}
-                            onChange={(e) => updateProp(key, e.target.value)} />
+                        className="w-full px-2 py-1 bg-neutral-800 border border-neutral-700 rounded"
+                        value={value}
+                        onChange={(e) => updateProp(key, e.target.value)}
+                        />
                     </div>
                 ))}
             </div>
@@ -65,7 +69,7 @@ export default function Inspector() {
                 <div className="flex justify-end">
                     <ResetButton
                         onClick={() =>
-                            updateNode(node.id, {
+                            updateNode(node!.id, {
                                 styles: {
                                     ...node.styles,
                                     ...defaultStyles.layout
@@ -75,21 +79,21 @@ export default function Inspector() {
                     />
                 </div>
                 <DisplayInput 
-                    styles={node.styles}  
-                    onChange={(prop, val) =>
-                        updateNode(node.id, { styles: { ...node.styles, [prop]: val}})
+                    styles={node!.styles ?? {}}  
+                    onChange={(prop: string, val: string | number) =>
+                        updateNode(node!.id, { styles: { ...node!.styles, [prop]: val}})
                     }              
                 />
                 <FlexControls 
-                    styles={node.styles}
-                    onChange={(prop, val) =>
-                        updateNode(node.id, { styles: { ...node.styles, [prop]: val}})
+                    styles={node!.styles ?? {}}
+                    onChange={(prop: string, val: string | number) =>
+                        updateNode(node!.id, { styles: { ...node!.styles, [prop]: val}})
                     }
                 />
                 <SizeInput 
-                    styles={node.styles}
-                    onChange={(prop, val) =>
-                        updateNode(node.id, { styles: { ...node.styles, [prop]: val}})
+                    styles={node!.styles ?? {}}
+                    onChange={(prop: string, val: string | number) =>
+                        updateNode(node!.id, { styles: { ...node!.styles, [prop]: val}})
                     }
                 />
             </Section>
@@ -109,15 +113,15 @@ export default function Inspector() {
                 <FourSideInput
                 label="Margin"
                     styles={{
-                    top: node.styles.marginTop,
-                    right: node.styles.marginRight,
-                    bottom: node.styles.marginBottom,
-                    left: node.styles.marginLeft,
+                    top: node!.styles?.marginTop ?? "",
+                    right: node!.styles?.marginRight ?? "",
+                    bottom: node!.styles?.marginBottom ?? "",
+                    left: node!.styles?.marginLeft ?? "",
                 }}
                 onChange={(side, value) =>
-                    updateNode(node.id, {
+                    updateNode(node!.id, {
                         styles: {
-                            ...node.styles,
+                            ...(node!.styles ?? {}),
                             [`margin${side.charAt(0).toUpperCase() + side.slice(1)}`]: value
                         }
                     })
@@ -126,15 +130,15 @@ export default function Inspector() {
                 <FourSideInput 
                 label="Padding"
                     styles={{
-                    top: node.styles.paddingTop,
-                    right: node.styles.paddingRight,
-                    bottom: node.styles.paddingBottom,
-                    left: node.styles.paddingLeft,
+                    top: node!.styles?.paddingTop ?? "",
+                    right: node!.styles?.paddingRight ?? "",
+                    bottom: node!.styles?.paddingBottom ?? "",
+                    left: node!.styles?.paddingLeft ?? "",
                 }}
                 onChange={(side, value) => 
-                    updateNode(node.id, {
+                    updateNode(node!.id, {
                         styles: {
-                            ...node.styles,
+                            ...(node!.styles ?? {}),
                             [`padding${side.charAt(0).toUpperCase() + side.slice(1)}`]: value
                         }
                     })
@@ -145,9 +149,9 @@ export default function Inspector() {
                 <div className="flex justify-end">
                     <ResetButton 
                         onClick={() =>
-                            updateNode(node.id, {
+                            updateNode(node!.id, {
                                 styles: {
-                                    ...node.styles,
+                                    ...node!.styles,
                                     ...defaultStyles.appearance
                                 }
                             })
@@ -156,19 +160,19 @@ export default function Inspector() {
                 </div>
                 <ColorInput 
                     label="Background Color"
-                    value={node.styles.backgroundColor}
+                    value={node!.styles?.backgroundColor as string}
                     onChange={(val) =>
-                        updateNode(node.id, {
-                            styles: { ...node.styles, backgroundColor: val}
+                        updateNode(node!.id, {
+                            styles: { ...(node!.styles ?? {}), backgroundColor: val}
                         })
                     }
                 />
                 <ColorInput 
                     label="Text Color"
-                    value={node.styles.color}
+                    value={node!.styles?.color as string}
                     onChange={(val) =>
-                        updateNode(node.id, {
-                            styles: {...node.styles, color: val}
+                        updateNode(node!.id, {
+                            styles: {...node!.styles, color: val}
                         })
                     }
                 />                
@@ -177,9 +181,9 @@ export default function Inspector() {
                 <div className="flex justify-end">
                     <ResetButton 
                         onClick={() =>
-                            updateNode(node.id, {
+                            updateNode(node!.id, {
                                 styles: {
-                                    ...node.styles,
+                                    ...node!.styles,
                                     ...defaultStyles.border
                                 }
                             })
@@ -187,18 +191,18 @@ export default function Inspector() {
                     />
                 </div>
                 <BorderInput 
-                    styles={node.styles}
+                    styles={node!.styles ?? {}}
                     onChange={(prop, val) =>
-                        updateNode(node.id, {
-                            styles: { ...node.styles, [prop]: val}
+                        updateNode(node!.id, {
+                            styles: { ...(node!.styles ?? {}), [prop]: val}
                         })
                     }
                 />
                 <RadiusInput 
-                    styles={node.styles}
+                    styles={node!.styles ?? {}}
                     onChange={(prop, val) =>
-                        updateNode(node.id, {
-                            styles: { ...node.styles, [prop]: val}
+                        updateNode(node!.id, {
+                            styles: { ...(node!.styles ?? {}), [prop]: val}
                         })
                     }
                 />
@@ -207,9 +211,9 @@ export default function Inspector() {
                 <div className="flex justify-end">
                     <ResetButton
                         onClick={() =>
-                            updateNode(node.id, {
+                            updateNode(node!.id, {
                                 styles: {
-                                    ...node.styles,
+                                    ...(node!.styles ?? {}),
                                     fontSize: "",
                                     fontWeight: "",
                                     lineHeight: "",
@@ -221,42 +225,42 @@ export default function Inspector() {
                     />
                 </div>
                 <FontSizeInput 
-                    value={node.styles.fontSize}
+                    value={node!.styles?.fontSize as string}
                     onChange={(val) =>
-                        updateNode(node.id, {
-                            styles: { ...node.styles, fontSize: val}
+                        updateNode(node!.id, {
+                            styles: { ...(node!.styles ?? {}), fontSize: val}
                         })
                     }
                 />
                 <FontWeightInput 
-                    value={node.styles.fontWeight}
+                    value={node!.styles?.fontWeight as string}
                     onChange={(val) =>
-                        updateNode(node.id, {
-                            styles: { ...node.styles, fontWeight: val}
+                        updateNode(node!.id, {
+                            styles: { ...(node!.styles ?? {}), fontWeight: val}
                         })
                     }
                 />
                 <LineHeightInput 
-                    value={node.styles.lineHeight}
+                    value={node!.styles?.lineHeight as string}
                     onChange={(val) =>
-                        updateNode(node.id, {
-                            styles: { ...node.styles, lineHeight: val}
+                        updateNode(node!.id, {
+                            styles: { ...(node!.styles ?? {}), lineHeight: val}
                         })
                     }
                 />
                 <LetterSpacingInput 
-                    value={node.styles.letterSpacing}
+                    value={node!.styles?.letterSpacing as string}
                     onChange={(val) =>
-                        updateNode(node.id, {
-                            styles: { ...node.styles, letterSpacing: val}
+                        updateNode(node!.id, {
+                            styles: { ...(node!.styles ?? {}), letterSpacing: val}
                         })
                     }
                 />
                 <TextAlignInput 
-                    value={node.styles.textAlign}
+                    value={node!.styles?.textAlign as string}
                     onChange={(val) =>
-                        updateNode(node.id, {
-                            styles: { ...node.styles, textAlign: val}
+                        updateNode(node!.id, {
+                            styles: { ...(node!.styles ?? {}), textAlign: val}
                         })
                     }
                 />

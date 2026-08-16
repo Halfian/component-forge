@@ -1,4 +1,9 @@
-export default function SizeInput({ styles, onChange }) {
+export type SizeInputProps = {
+    styles: Record<string, string | number>;
+    onChange: (prop: string, value: string | number) => void;
+};
+
+export default function SizeInput({ styles, onChange }: SizeInputProps) {
     return (
         <div className="grid grid-cols-2 gap-2">
             <div>

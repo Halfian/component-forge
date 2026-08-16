@@ -1,4 +1,13 @@
-export const componentTypes = {
+export type ComponentTypeDefinition = {
+    defaultProps: Record<string, any>;
+    defaultStyles: Record<string, string | number>;
+};
+
+export type ComponentTypesMap = {
+    [key: string] : ComponentTypeDefinition;
+}
+
+export const componentTypes: ComponentTypesMap = {
     button: {
         defaultProps: { text: "Button" },
         defaultStyles: {

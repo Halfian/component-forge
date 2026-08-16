@@ -1,6 +1,33 @@
 import { create } from 'zustand';
 
-export const useCanvasStore = create((set, get) => ({
+export type Node = {
+    id: string;
+    type: string;
+    props?: Record<string, any>;
+    styles?: Record<string, string | number>;
+    children?: Node[];
+}
+
+export type PresentState = {
+    tree: Node[];
+    selectedId: string | null;
+}
+
+export interface CanvasStore {
+    past: PresentState[];
+    present: PresentState;
+    future: PresentState[];
+
+    saveHistory: (newPresent: PresentState) => void;
+    addNode: (node: Node) => void;
+    addChild: (parentId: string, childNode: Node) => void;
+    updateNode: (id: string, updates: Partial<Node>) => void;
+    selectNode: (id: string) => void;
+    undo: () => void;
+    redo: () => void;
+}
+
+export const useCanvasStore = create<CanvasStore>((set, get) => ({
     past: [],
     present: {
         tree: [],
@@ -60,35 +87,37 @@ export const useCanvasStore = create((set, get) => ({
     },
 
     undo() {
-        const { past, present, future } = get();
-        if (past.length === 0) return;
+        set((state) => {
+            if (state.past.length === 0) return state;
 
-        const previous = past[past.length - 1];
-        const newPast = past.slice(0, past.length -1);
+            const previous = state.past[state.past.length - 1];
+            const newPast = state.past.slice(0, state.past.length - 1);
 
-        set({
+            return {
             past: newPast,
             present: previous,
-            future: [present, ...future],
+            future: [state.present, ...state.future],
+            } as Partial<CanvasStore>;
         });
     },
 
     redo() {
-        const { past, present, future } = get();
-        if (future.length === 0) return;
+        set((state) => {
+            if (state.future.length === 0) return state;
 
-        const next = future[0];
-        const newFuture = future.slice(1);
+            const next = state.future[0];
+            const newFuture = state.future.slice(1);
 
-        set({
-            past: [...past, present],
-            present: next,
+            return {
+            past: [...state.past, state.present],
+            present: next,  
             future: newFuture,
+            } as Partial<CanvasStore>;
         });
     }
 }));
 
-function updateNodeRecursive(tree, id, updates) {
+function updateNodeRecursive(tree: Node[], id: string, updates: Partial<Node>): Node[] {
     return tree.map(node => {
         if (node.id === id) {
             return { ...node, ...updates };

@@ -1,4 +1,9 @@
-export default function FontWeightInput({ value, onChange }) {
+export type FontWeightInputProps = {
+    value: string;
+    onChange: (value: string) => void;
+};
+
+export default function FontWeightInput({ value, onChange }: FontWeightInputProps) {
     return (
         <div className="mb-3">
             <label className="block text-xs opacity-70 mb-1">Font Weight</label>

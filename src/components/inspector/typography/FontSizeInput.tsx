@@ -1,4 +1,9 @@
-export default function FontSizeInput({ value, onChange }) {
+export type FontSizeInputProps = {
+    value: string;
+    onChange: (value: string) => void;
+};
+
+export default function FontSizeInput({ value, onChange }: FontSizeInputProps) {
     return (
         <div className="mb-3">
             <label className="block text-xs opacity-70 mb-1">Font Size</label>

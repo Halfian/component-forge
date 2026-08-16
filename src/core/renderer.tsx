@@ -1,13 +1,14 @@
-import { useCanvasStore } from "../store/canvasStore";
+import { useCanvasStore } from "../store/canvasStore.js";
+import type { Node } from "../store/canvasStore.js";
 
-export function renderNode(node) {
-    const { layout, box, typography } = splitStyles(node.styles);
+export function renderNode(node: Node) {
+    const { layout, box, typography } = splitStyles(node.styles ?? {});
     const selectNode = useCanvasStore.getState().selectNode;
     const present = useCanvasStore.getState().present;
     const selectedId = present.selectedId;
     const isSelected = selectedId === node.id;
 
-    let inner = null;
+    let inner: React.ReactNode = null;
 
     switch (node.type) {
         case "button":
@@ -16,7 +17,7 @@ export function renderNode(node) {
                     className="px-3 py-1 rounded"
                     style={{...layout, ...box, ...typography}}
                 >
-                    {node.props.text}
+                    {node.props?.text ?? ""}
                 </button>
             );
             break;
@@ -24,7 +25,7 @@ export function renderNode(node) {
         case "text":
             inner = (
                 <span style={{...layout, ...box, ...typography}}>
-                    {node.props.text}
+                    {node.props?.text ?? ""}
                 </span>
             );
             break;
@@ -32,7 +33,7 @@ export function renderNode(node) {
         case "input":
             inner = (
                 <input
-                    placeholder={node.props.placeholder}
+                    placeholder={node.props?.placeholder ?? ""}
                     className="px-2 py-1 border border-neutral-700 rounded" 
                     style={{...layout, ...box, ...typography}}/>                
             );
@@ -41,8 +42,8 @@ export function renderNode(node) {
         case "image":
             inner = (
                 <img
-                    src={node.props.src || "https://placehold.co/200x150?text=Image"}
-                    alt={node.props.alt || "Image"}
+                    src={node.props?.src || "https://placehold.co/200x150?text=Image"}
+                    alt={node.props?.alt || "Image"}
                     style={{...layout, ...box}}
                 />
             );
@@ -52,12 +53,12 @@ export function renderNode(node) {
             inner = (
                 <div style={{...layout, ...box}}>
                     <img 
-                        src={node.props.imageSrc || "https://placehold.co/300x180?text=Card+Image"} 
-                        alt={node.props.title || "Card Image"} 
+                        src={node.props?.imageSrc || "https://placehold.co/300x180?text=Card+Image"} 
+                        alt={node.props?.title || "Card Image"} 
                         style={{ width: "100%", height: "180px", objectFit: "cover", borderRadius: "6px" }}
                     />
-                    <h3 style={{ ...typography, margin: "8px 0 4px" }}>{node.props.title}</h3>
-                    <p style={{ ...typography, fontSize: "14px", opacity: 0.8 }}>{node.props.description}</p>
+                    <h3 style={{ ...typography, margin: "8px 0 4px" }}>{node.props?.title}</h3>
+                    <p style={{ ...typography, fontSize: "14px", opacity: 0.8 }}>{node.props?.description}</p>
                 </div>
             );
             break;
@@ -70,7 +71,7 @@ export function renderNode(node) {
                         node.children?.map((child) => renderNode(child))
                     ) : (
                         <div
-                            styles={{
+                            style={{
                                 opacity: 0.5,
                                 textAlign: "center",
                                 fontSize: "12px",
@@ -104,16 +105,18 @@ export function renderNode(node) {
     );
 }
 
-export function renderTree(tree) {
+export function renderTree(tree: Node[]) {
     return tree.map(node => renderNode(node));
 };
 
-function splitStyles(styles) {
-    const layout = {};
-    const box = {};
-    const typography = {};
+function splitStyles(styles: Record<string, string | number>) {
+    const layout: Partial<Record<string, string | number>> = {};
+    const box: Partial<Record<string, string | number>> = {};
+    const typography: Partial<Record<string, string | number>> = {};
 
     for (const key in styles) {
+        const value = styles[key];
+
         if (
             key === "display" ||
             key === "flexDirection" ||
@@ -124,16 +127,16 @@ function splitStyles(styles) {
             key === "width" ||
             key === "height"
         ) {
-            layout[key] = styles[key];
+            layout[key] = value;
         } else if (
             key === "backgroundColor" ||
             key === "border" ||
             key === "borderRadius" ||
             key === "padding"
         ) {
-            box[key] = styles[key];
+            box[key] = value;
         } else {
-            typography[key] = styles[key];
+            typography[key] = value;
         }        
     }
     return { layout, box, typography };

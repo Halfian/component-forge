@@ -1,4 +1,9 @@
-export default function RadiusInput({ styles, onChange }) {
+export type RadiusInputProps = {
+    styles: Record<string, string | number>;
+    onChange: (prop: string, value: string) => void;
+};
+
+export default function RadiusInput({ styles, onChange }: RadiusInputProps) {
     return (
         <div>
             <label className="block text-xs opacity-70 mb-1">Border Radius</label>

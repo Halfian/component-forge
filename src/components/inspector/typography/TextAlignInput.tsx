@@ -1,4 +1,9 @@
-export default function TextAlignInput({ value, onChange }) {
+export type TextAlignInputProps = {
+    value: string;
+    onChange: (value: string) => void;
+};
+
+export default function TextAlignInput({ value, onChange }: TextAlignInputProps) {
     return (
         <div className="mb-3">
             <label className="block text-xs opacity-70 mb-1">Text Align</label>

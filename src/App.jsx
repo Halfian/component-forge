@@ -1,10 +1,10 @@
 import { useState } from 'react';
-import Sidebar from './components/Sidebar';
+import Sidebar from './components/Sidebar.js';
 import { createNode } from './core/schema';
 import { componentTypes } from './core/component-types';
-import { useCanvasStore } from "./store/canvasStore";
-import { renderTree} from './core/renderer';
-import Inspector from './components/inspector/Inspector';
+import { useCanvasStore } from "./store/canvasStore.js";
+import { renderTree} from './core/renderer.js';
+import Inspector from './components/inspector/Inspector.js';
 
 function App() {
   const [dragItem, setDragItem] = useState(null);

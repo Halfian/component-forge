@@ -1,4 +1,8 @@
-export default function ResetButton({ onClick }) {
+export type ResetButtonProps = {
+    onClick: () => void;
+};
+
+export default function ResetButton({ onClick }: ResetButtonProps) {
     return (
         <button
             onClick={onClick}

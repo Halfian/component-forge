@@ -1,4 +1,13 @@
-export const defaultStyles =  {
+export type StyleGroup = Record<string, string | number>;
+
+export type DefaultStylesMap = {
+    spacing: StyleGroup;
+    appearance: StyleGroup;
+    border: StyleGroup;
+    layout: StyleGroup;
+};
+
+export const defaultStyles: DefaultStylesMap =  {
     spacing: {
         marginTop: "",
         marginRight: "",

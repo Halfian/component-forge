@@ -1,6 +1,11 @@
-import ColorInput from "../appearance/ColorInput";
+import ColorInput from "../appearance/ColorInput.js";
 
-export default function BorderInput({ styles, onChange }) {
+export type BorderInputProps = {
+    styles: Record<string, string | number>;
+    onChange: (prop: string, value: string) => void;
+}
+
+export default function BorderInput({ styles, onChange }: BorderInputProps) {
     return (
         <div className="space-y-3">
             <div>
@@ -9,7 +14,7 @@ export default function BorderInput({ styles, onChange }) {
                     type="number"
                     min="0"
                     className="w-full px-2 py-1 bg-neutral-800 border border-neutral-700 rounded"
-                    value={parseInt(styles.borderWidth) || 0}
+                    value={parseInt(styles.borderWidth as string) || 0}
                     onChange={(e) =>
                         onChange("borderWidth", `${e.target.value}px`)
                     }
@@ -32,7 +37,7 @@ export default function BorderInput({ styles, onChange }) {
             </div>
             <ColorInput
                 label="Border Color"
-                value={styles.borderColor}
+                value={styles.borderColor as string}
                 onChange={(val) => onChange("borderColor", val)}            
             />
         </div>

@@ -1,4 +1,10 @@
-export default function ColorInput({ label, value, onChange }) {
+export type ColorInputProps = {
+    label: string;
+    value?: string;
+    onChange: (value: string) => void;
+}
+
+export default function ColorInput({ label, value, onChange }: ColorInputProps) {
     return (
         <div className="mb-3">
             <label className="block text-xs opacity-70 mb-1">{label}</label>
