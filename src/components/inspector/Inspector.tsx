@@ -41,12 +41,12 @@ export default function Inspector() {
     }
 
     return (
-        <aside className="border-l border-neutral-800 p-4 text-sm space-y-4">
-            <h2 className="font-semibold text-neutral-200 text-base ml-25">Inspector</h2>
+        <aside className="border-l border-[var(--app-line)] p-4 text-sm space-y-4 bg-[var(--app-card)] text-[var(--app-fg)]">
+            <h2 className="font-semibold text-base ml-25">Inspector</h2>
 
             <div>
                 <p className="opacity-70 mb-1">Type</p>
-                <div className="bg-neutral-800 px-2 py-1 rounded border border-neutral-700">
+                <div className="bg-[var(--app-card)] px-2 py-1 rounded border border-[var(--app-line)]">
                     {node.type}
                 </div>
             </div>
@@ -58,7 +58,7 @@ export default function Inspector() {
                     <div key={key} className="mb-2">
                         <label className="block text-xs opacity-70 mb-1">{key}</label>
                         <input
-                        className="w-full px-2 py-1 bg-neutral-800 border border-neutral-700 rounded"
+                        className="w-full px-2 py-1 bg-[var(--app-card)] border border-[var(--app-line)] rounded text-[var(--app-fg)]"
                         value={value}
                         onChange={(e) => updateProp(key, e.target.value)}
                         />

@@ -9,9 +9,9 @@ export default function FlexControls({ styles, onChange }: FlexControlsProp) {
     return (
         <div className="space-y-3">
             <div>
-                <label className="block text-xs opacity-70 mb-1">Direction</label>
+                <label className="block text-xs opacity-70 mb-1 text-[var(--app-fg)]">Direction</label>
                 <select
-                    className="w-full px-2 py-1 bg-neutral-800 border border-neutral-700 rounded"
+                    className="w-full px-2 py-1 bg-[var(--app-card)] border border-[var(--app-line)] rounded"
                     value={styles.flexDirection}
                     onChange={(e) => onChange("flexDirection", e.target.value)}
                 >
@@ -20,9 +20,9 @@ export default function FlexControls({ styles, onChange }: FlexControlsProp) {
                 </select>
             </div>
             <div>
-                <label className="block text-xs opacity-70 mb-1">Justify</label>
+                <label className="block text-xs opacity-70 mb-1 text-[var(--app-fg)]">Justify</label>
                 <select
-                    className="w-full px-2 py-1 bg-neutral-800 border border-neutral-700 rounded"
+                    className="w-full px-2 py-1 bg-[var(--app-card)] border border-[var(--app-line)] rounded"
                     value={styles.justifyContent || "flex-start"}
                     onChange={(e) => onChange("justifyContent", e.target.value)}
                 >
@@ -34,9 +34,9 @@ export default function FlexControls({ styles, onChange }: FlexControlsProp) {
                 </select>
             </div>
             <div>
-                <label className="block text-xs opacity-70 mb-1">Align</label>
+                <label className="block text-xs opacity-70 mb-1 text-[var(--app-fg)]">Align</label>
                 <select
-                    className="w-full px-2 py-1 bg-neutral-800 border border-neutral-700 rounded"
+                    className="w-full px-2 py-1 bg-[var(--app-card)] border border-[var(--app-line)] rounded"
                     value={styles.alignItems || "stretch"}
                     onChange={(e) => onChange("alignItems", e.target.value)}
                 >

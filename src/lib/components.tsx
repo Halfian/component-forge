@@ -8,28 +8,28 @@ export const componentLibrary: ComponentLibraryItem[] = [
     {
         id: "button",
         label: "Button",
-        preview: <button className="px-3 py-1 bg-neutral-700 rounded">Button</button>,
+        preview: <button className="px-3 py-1 bg-[var(--app-card)] border border-[var(--app-line)] rounded text-[var(--app-fg)]">Button</button>,
     },
     {
         id: "text",
         label: "Text",
-        preview: <span className="text-sm">Text</span>,
+        preview: <span className="text-sm text-[var(--app-fg)]">Text</span>,
     },
     {
         id: "input",
         label: "Input",
-        preview: <input className="px-2 py-1 bg-neutral-800 border border-neutral-700 rounded"></input>,
+        preview: <input className="px-2 py-1 bg-[var(--app-card)] border border-[var(--app-line)] rounded text-[var(--app-fg)]"></input>,
     },
     {
         id: "image",
         label: "Image",
-        preview: <img src="https://placehold.co/100x75?text=Image" alt="preview" className="rounded" />,
+        preview: <img src="https://placehold.co/100x75?text=Image" alt="preview" className="rounded border border-[var(--app-line)] bg-[var(--app-card)]" />,
     },
     {
         id: "card",
         label: "Card",
         preview: (
-            <div className="w-[120px] p-2 bg-neutral-800 rounded shadow">
+            <div className="w-[120px] p-2 bg-[var(--app-card)] border border-[var(--app-line)] rounded shadow text-[var(--app-fg)]">
                 <img 
                     src="https://placehold.co/100x60?text=Card" 
                     alt="card preview"
@@ -44,7 +44,7 @@ export const componentLibrary: ComponentLibraryItem[] = [
         id: "container",
         label: "Container",
         preview: (
-            <div className="px-3 py-2 bg-neutral-700 rounded text-xs">
+            <div className="px-3 py-2 bg-[var(--app-card)] border border-[var(--app-line)] rounded text-xs text-[var(--app-fg)]">
                 Container
             </div>
         ),

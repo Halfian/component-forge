@@ -14,7 +14,7 @@ export function renderNode(node: Node) {
         case "button":
             inner = (
                 <button 
-                    className="px-3 py-1 rounded"
+                    className="px-3 py-1 rounded bg-[var(--app-card)] border border-[var(--app-line)] text-[var(--app-fg)]"
                     style={{...layout, ...box, ...typography}}
                 >
                     {node.props?.text ?? ""}
@@ -24,7 +24,10 @@ export function renderNode(node: Node) {
 
         case "text":
             inner = (
-                <span style={{...layout, ...box, ...typography}}>
+                <span 
+                    className="text-[var(--app-fg)]"
+                    style={{...layout, ...box, ...typography}}
+                >
                     {node.props?.text ?? ""}
                 </span>
             );
@@ -34,7 +37,7 @@ export function renderNode(node: Node) {
             inner = (
                 <input
                     placeholder={node.props?.placeholder ?? ""}
-                    className="px-2 py-1 border border-neutral-700 rounded" 
+                    className="px-2 py-1 bg-[var(--app-card)] border border-[var(--app-line)] rounded text-[var(--app-fg)]" 
                     style={{...layout, ...box, ...typography}}/>                
             );
             break;
@@ -44,6 +47,7 @@ export function renderNode(node: Node) {
                 <img
                     src={node.props?.src || "https://placehold.co/200x150?text=Image"}
                     alt={node.props?.alt || "Image"}
+                    className="border border-[var(--app-line)] rounded bg-[var(--app-card)]"
                     style={{...layout, ...box}}
                 />
             );
@@ -51,7 +55,10 @@ export function renderNode(node: Node) {
 
         case "card":
             inner = (
-                <div style={{...layout, ...box}}>
+                <div 
+                    className="bg-[var(--app-card)] border border-[var(--app-line)] rounded text-[var(--app-fg)]"
+                    style={{...layout, ...box}}
+                >
                     <img 
                         src={node.props?.imageSrc || "https://placehold.co/300x180?text=Card+Image"} 
                         alt={node.props?.title || "Card Image"} 
@@ -66,7 +73,10 @@ export function renderNode(node: Node) {
         case "container": {
             const hasChildren = node.children && node.children.length > 0;
             inner = (
-                <div style={{...box, ...layout}}>
+                <div 
+                    className="bg-[var(--app-card)] border border-[var(--app-line)] rounded"
+                    style={{...box, ...layout}}
+                >
                     {hasChildren ? (
                         node.children?.map((child) => renderNode(child))
                     ) : (
@@ -99,7 +109,7 @@ export function renderNode(node: Node) {
                 e.stopPropagation();
                 selectNode(node.id);
             }}
-            className={`inline-block relative ${isSelected ? "outline outline-1 outline-blue-400" : ""}`}>
+            className={`inline-block relative ${isSelected ? "outline outline-1 outline-[var(--app-accent)]" : ""}`}>
             {inner}
         </div>
     );

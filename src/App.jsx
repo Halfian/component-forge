@@ -5,6 +5,7 @@ import { componentTypes } from './core/component-types';
 import { useCanvasStore } from "./store/canvasStore.js";
 import { renderTree} from './core/renderer.js';
 import Inspector from './components/inspector/Inspector.js';
+import ThemeToggle from './components/ThemeToggle.js';
 
 function App() {
   const [dragItem, setDragItem] = useState(null);
@@ -66,42 +67,51 @@ function App() {
 
   return (
     <>
-      <div className="h-screen w-screen grid grid-rows-[48px_1fr] bg-neutral-900 text-neutral-100">
-        <header className="border-b border-neutral-800 flex items-center px-4">
+      <div className="h-screen w-screen grid grid-rows-[48px_1fr] bg-[var(--app-bg)] text-[var(--app-fg)]">
+        <header className="border-b border-[var(--app-line)] flex items-center justify-between px-4 py-2 bg-[var(--app-bg)]">
           <h1 className="font-semibold mr-5">Component Forge</h1>
-          <button
-            onClick={undo}
-            className="m-2 px-2 py-1 bg-neutral-800 border border-neutral-700 rounded text-sm"
-          >
-            Undo
-          </button>
+          <div className="flex items-center gap-3">
+            <button
+              onClick={undo}
+              className="px-2 py-1 bg-[var(--app-card)] border border-[var(--app-line)] rounded text-sm"
+            >
+              Undo
+            </button>
 
-          <button
-            onClick={redo}
-            className="m-2 px-2 py-1 bg-neutral-800 border border-neutral-700 rounded text-sm"
-          >
-            Redo
-          </button>
+            <button
+              onClick={redo}
+              className="px-2 py-1 bg-[var(--app-card)] border border-[var(--app-line)] rounded text-sm"
+            >
+              Redo
+            </button>
+
+            <ThemeToggle />
+          </div>
         </header>
 
         <div className="grid grid-cols-[240px_1fr_300px] h-full overflow-hidden">
-          <div className="h-full overflow-y-auto bg-neutral-900">
+          <div className="h-full overflow-y-auto bg-[var(--app-card)]">
             <Sidebar onDragStart={handleDragStart} />
           </div>
-          <main className="relative bg-neutral-950 flex items-center justify-center overflow-hidden"
-            onPointerUp={handleCanvasDrop}>
-            <div className="bg-neutral-800/40 border border-neutral-700 rounded-lg w-[80%] h-[80%] p-4 overflow-auto space-x-4">
+
+          <main
+            className="relative bg-[var(--app-card)] flex items-center justify-center overflow-hidden"
+            onPointerUp={handleCanvasDrop}
+          >
+            <div className="bg-[var(--app-card)] border border-[var(--app-line)] rounded-lg w-[80%] h-[80%] p-4 overflow-auto space-x-4">
               {renderTree(tree)}
             </div>
             {dragItem && (
               <div
                 className="pointer-events-none fixed opacity-70"
-                style={{ left: dragPos.x + 10, top: dragPos.y + 10}}>
+                style={{ left: dragPos.x + 10, top: dragPos.y + 10 }}
+              >
                 {dragItem.preview}
               </div>
             )}
           </main>
-          <div className="h-full overflow-y-auto bg-neutral-900">
+
+          <div className="h-full overflow-y-auto bg-[var(--app-card)]">
             <Inspector />
           </div>
         </div>

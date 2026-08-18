@@ -9,7 +9,7 @@ export default function FontSizeInput({ value, onChange }: FontSizeInputProps) {
             <label className="block text-xs opacity-70 mb-1">Font Size</label>
             <input 
                 type="text"
-                className="w-full px-2 py-1 bg-neutral-800 border border-neutral-700 rounded"
+                className="w-full px-2 py-1 bg-[var(--app-card)] border border-[var(--app-line)] rounded text-[var(--app-fg)]"
                 value={value || ""}
                 onChange={(e) => onChange(e.target.value)}
                 placeholder="e.g., 16px" 

@@ -12,17 +12,25 @@ export const componentTypes: ComponentTypesMap = {
         defaultProps: { text: "Button" },
         defaultStyles: {
             padding: "8px 12px",
-            backgroundColor: "#3b3b3b",
+            backgroundColor: "var(--app-card)",
             borderRadius: "6px",
             display: "inline-block",
+            color: "var(--app-fg)",
+            border: "1px solid var(--app-line)",
         }
     },
 
     text: {
         defaultProps: { text: "Text" },
         defaultStyles: {
-            fontSize: "14px",
+            fontSize: "16px",
+            fontWeight: "500",
+            padding: "4px 6px",
             display: "inline-block",
+            color: "var(--app-fg)",
+            backgroundColor: "var(--app-card)",
+            border: "1px solid var(--app-line)",
+            borderRadius: "4px",
         }
     },
 
@@ -30,9 +38,10 @@ export const componentTypes: ComponentTypesMap = {
         defaultProps: { placeholder: "Enter text" },
         defaultStyles: {
             padding: "6px 8px",
-            border: "1px solid #555",
-            backgroundColor: "#1a1a1a",
+            border: "1px solid var(--app-line)",
+            backgroundColor: "var(--app-card)",
             display: "inline-block",
+            color: "var(--app-fg)",
         }
     },
 
@@ -43,7 +52,8 @@ export const componentTypes: ComponentTypesMap = {
             height: "150px",
             objectFit: "cover",
             borderRadius: "6px",
-            backgroundColor: "#333333",
+            backgroundColor: "var(--app-card)",
+            border: "1px solid var(--app-line)",
         }
     },
 
@@ -59,10 +69,11 @@ export const componentTypes: ComponentTypesMap = {
             gap: "8px",
             padding: "12px",
             width: "300px",
-            backgroundColor: "#222222",
+            backgroundColor: "var(--app-card)",
             borderRadius: "8px",
-            border: "1px solid #444",
+            border: "1px solid var(--app-line)",
             boxShadow: "0 2px 6px rgba(0,0,0,0.3)",
+            color: "var(--app-fg)",
         }
     },
 
@@ -73,11 +84,12 @@ export const componentTypes: ComponentTypesMap = {
             flexDirection: "row",
             gap: "8px",
             padding: "8px",
-            backgroundColor: "#222222",
+            backgroundColor: "var(--app-card)",
             borderRadius: "6px",
-            border: "1px solid #444",
+            border: "1px solid var(--app-line)",
             width: "200px",
             height: "150px",
+            color: "var(--app-fg)",
         }
     }
 };

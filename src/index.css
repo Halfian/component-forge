@@ -1,1 +1,19 @@
 @import "tailwindcss";
+
+/* Base (light) theme variables */
+:root {
+  --app-bg: #ffffff;       /* light background */
+  --app-fg: #111827;       /* dark gray text */
+  --app-line: #e5e7eb;     /* light gray border */
+  --app-card: #f3f4f6;     /* card background */
+  --app-accent: #2563eb;   /* accent blue */
+}
+
+/* Manual toggle via .dark class */
+.dark {
+  --app-bg: #111827;
+  --app-fg: #f9fafb;
+  --app-line: #374151;
+  --app-card: #1f2937;
+  --app-accent: #3b82f6;
+}
