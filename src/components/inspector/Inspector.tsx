@@ -28,7 +28,7 @@ export default function Inspector() {
 
     if (!node) {
         return (
-            <aside className="border-l border-neutral-800 p-4 text-base opacity-60">
+            <aside className="border-l border-[var(--app-line)] bg-[var(--app-bg)] p-4 text-[var(--app-fg)] opacity-60">
                 No component selected
             </aside>
         );
@@ -41,7 +41,7 @@ export default function Inspector() {
     }
 
     return (
-        <aside className="border-l border-[var(--app-line)] p-4 text-sm space-y-4 bg-[var(--app-card)] text-[var(--app-fg)]">
+        <aside className="border-l border-[var(--app-line)] p-4 text-sm space-y-4 bg-[var(--app-bg)] text-[var(--app-fg)]">
             <h2 className="font-semibold text-base ml-25">Inspector</h2>
 
             <div>
