@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import Sidebar from './components/Sidebar.js';
 import { createNode } from './core/schema';
 import { componentTypes } from './core/component-types';
@@ -10,29 +10,60 @@ import ThemeToggle from './components/ThemeToggle.js';
 function App() {
   const [dragItem, setDragItem] = useState(null);
   const [dragPos, setDragPos] = useState({ x: 0, y: 0 });
+  const dragMoveRef = useRef(null);
+  const dragEndRef = useRef(null);
+
+  // Keep a reference to the active drag item so the window event can read it reliably
+  const dragItemRef = useRef(null);
 
   function handleDragStart(e, item) {
+    e.preventDefault();
+
     setDragItem(item);
+    dragItemRef.current = item;
     setDragPos({ x: e.clientX, y: e.clientY });
 
-    window.addEventListener('pointermove', handleDragMove);
-    window.addEventListener('pointerup', handleDragEnd);
+    // Clean up any accidental leftover listeners first
+    cleanupDragListeners();
+
+    // Define scoped handlers that capture the current lifecycle
+    dragMoveRef.current = (moveEvent) => {
+      setDragPos({ x: moveEvent.clientX, y: moveEvent.clientY });
+    };
+
+    dragEndRef.current = (endEvent) => {  
+      // Process the drop logic first using the active event details
+      handleCanvasDrop(endEvent, dragItemRef.current);    
+
+      // Reset state and clear window hooks cleanly
+      setDragItem(null);
+      dragItemRef.current = null;
+      cleanupDragListeners();
+    };
+
+    window.addEventListener('pointermove', dragMoveRef.current);
+    window.addEventListener('pointerup', dragEndRef.current);
   }
 
-  function handleDragMove(e) {
-    setDragPos({ x: e.clientX, y: e.clientY });
+  function cleanupDragListeners() {
+    if (dragMoveRef.current) {
+      window.removeEventListener('pointermove', dragMoveRef.current);
+      dragMoveRef.current = null;
+    }
+    if (dragEndRef.current) {
+      window.removeEventListener('pointerup', dragEndRef.current);
+      dragEndRef.current = null;
+    }
   }
 
-  function handleDragEnd() {
-    setDragItem(null);
-    window.removeEventListener('pointermove', handleDragMove);
-    window.removeEventListener('pointerup', handleDragEnd);
-  }
+  useEffect(() => {
+    return () => cleanupDragListeners();
+  }, []);
 
-  function handleCanvasDrop(e) {
-    if (!dragItem) return;
+  function handleCanvasDrop(e, currentDragItem) {
+    if (!currentDragItem) return;
 
-    const type = dragItem.id;
+    const type = currentDragItem.id;
     const defaults = componentTypes[type]?.defaultProps || {};
     const defaultStyles = componentTypes[type]?.defaultStyles || {};
     const node = createNode(type, defaults);
@@ -96,7 +127,6 @@ function App() {
 
           <main
             className="relative bg-(--app-card) flex items-center justify-center overflow-hidden"
-            onPointerUp={handleCanvasDrop}
           >
             <div className="bg-(--app-card) border border-(--app-line) rounded-lg w-[80%] h-[80%] p-4 overflow-auto space-x-4">
               {renderTree(tree)}
