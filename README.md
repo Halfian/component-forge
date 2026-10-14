@@ -46,9 +46,9 @@ https://halfian.github.io/component-forge/
 
 ## Screenshot
 
-![Alt text](public/screenshot/component-forge.png)
+![Alt text](public/screenshot/component-forge-darkTheme.png)
 
-![Alt text](public/screenshot/Screenshot-component-forge.png)
+![Alt text](public/screenshot/component-forge-lightTheme.png)
 
 ---
 
