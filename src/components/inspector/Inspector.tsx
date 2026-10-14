@@ -28,7 +28,7 @@ export default function Inspector() {
 
     if (!node) {
         return (
-            <aside className="border-l border-[var(--app-line)] bg-[var(--app-bg)] p-4 text-[var(--app-fg)] opacity-60">
+            <aside className="border-l border-(--app-line) bg-(--app-bg) p-4 text-(--app-fg) opacity-60">
                 No component selected
             </aside>
         );
@@ -41,12 +41,12 @@ export default function Inspector() {
     }
 
     return (
-        <aside className="border-l border-[var(--app-line)] p-4 text-sm space-y-4 bg-[var(--app-bg)] text-[var(--app-fg)]">
+        <aside className="border-l border-(--app-line) p-4 text-sm space-y-4 bg-(--app-bg) text-(--app-fg)">
             <h2 className="font-semibold text-base ml-25">Inspector</h2>
 
             <div>
                 <p className="opacity-70 mb-1">Type</p>
-                <div className="bg-[var(--app-card)] px-2 py-1 rounded border border-[var(--app-line)]">
+                <div className="bg-(--app-card) px-2 py-1 rounded border border-(--app-line)">
                     {node.type}
                 </div>
             </div>
@@ -58,7 +58,7 @@ export default function Inspector() {
                     <div key={key} className="mb-2">
                         <label className="block text-xs opacity-70 mb-1">{key}</label>
                         <input
-                        className="w-full px-2 py-1 bg-[var(--app-card)] border border-[var(--app-line)] rounded text-[var(--app-fg)]"
+                        className="w-full px-2 py-1 bg-(--app-card) border border-(--app-line) rounded text-(--app-fg)"
                         value={value}
                         onChange={(e) => updateProp(key, e.target.value)}
                         />

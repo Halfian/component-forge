@@ -14,7 +14,7 @@ export function renderNode(node: Node) {
         case "button":
             inner = (
                 <button 
-                    className="px-3 py-1 rounded bg-[var(--app-card)] border border-[var(--app-line)] text-[var(--app-fg)]"
+                    className="px-3 py-1 rounded bg-(--app-card) border border-(--app-line) text-(--app-fg)"
                     style={{...layout, ...box, ...typography}}
                 >
                     {node.props?.text ?? ""}
@@ -25,7 +25,7 @@ export function renderNode(node: Node) {
         case "text":
             inner = (
                 <span 
-                    className="text-[var(--app-fg)]"
+                    className="text-(--app-fg)"
                     style={{...layout, ...box, ...typography}}
                 >
                     {node.props?.text ?? ""}
@@ -37,7 +37,7 @@ export function renderNode(node: Node) {
             inner = (
                 <input
                     placeholder={node.props?.placeholder ?? ""}
-                    className="px-2 py-1 bg-[var(--app-card)] border border-[var(--app-line)] rounded text-[var(--app-fg)]" 
+                    className="px-2 py-1 bg-(--app-card) border border-(--app-line) rounded text-(--app-fg)" 
                     style={{...layout, ...box, ...typography}}/>                
             );
             break;
@@ -47,7 +47,7 @@ export function renderNode(node: Node) {
                 <img
                     src={node.props?.src || "https://placehold.co/200x150?text=Image"}
                     alt={node.props?.alt || "Image"}
-                    className="border border-[var(--app-line)] rounded bg-[var(--app-card)]"
+                    className="border border-(--app-line) rounded bg-(--app-card)"
                     style={{...layout, ...box}}
                 />
             );
@@ -56,7 +56,7 @@ export function renderNode(node: Node) {
         case "card":
             inner = (
                 <div 
-                    className="bg-[var(--app-card)] border border-[var(--app-line)] rounded text-[var(--app-fg)]"
+                    className="bg-(--app-card) border border-(--app-line) rounded text-(--app-fg)"
                     style={{...layout, ...box}}
                 >
                     <img 
@@ -74,7 +74,7 @@ export function renderNode(node: Node) {
             const hasChildren = node.children && node.children.length > 0;
             inner = (
                 <div 
-                    className="bg-[var(--app-card)] border border-[var(--app-line)] rounded"
+                    className="bg-(--app-card) border border-(--app-line) rounded"
                     style={{...box, ...layout}}
                 >
                     {hasChildren ? (
@@ -109,7 +109,7 @@ export function renderNode(node: Node) {
                 e.stopPropagation();
                 selectNode(node.id);
             }}
-            className={`inline-block relative ${isSelected ? "outline outline-1 outline-[var(--app-accent)]" : ""}`}>
+            className={`inline-block relative ${isSelected ? "outline outline-(--app-accent)" : ""}`}>
             {inner}
         </div>
     );

@@ -67,20 +67,20 @@ function App() {
 
   return (
     <>
-      <div className="h-screen w-screen grid grid-rows-[48px_1fr] bg-[var(--app-bg)] text-[var(--app-fg)]">
-        <header className="border-b border-[var(--app-line)] flex items-center justify-between px-4 py-2 bg-[var(--app-bg)]">
+      <div className="h-screen w-screen grid grid-rows-[48px_1fr] bg-(--app-bg) text-(--app-fg)">
+        <header className="border-b border-(--app-line) flex items-center justify-between px-4 py-2 bg-(--app-bg)">
           <h1 className="font-semibold mr-5">Component Forge</h1>
           <div className="flex items-center gap-3">
             <button
               onClick={undo}
-              className="px-2 py-1 bg-[var(--app-card)] border border-[var(--app-line)] rounded text-sm"
+              className="px-2 py-1 bg-(--app-card) border border-(--app-line) rounded text-sm"
             >
               Undo
             </button>
 
             <button
               onClick={redo}
-              className="px-2 py-1 bg-[var(--app-card)] border border-[var(--app-line)] rounded text-sm"
+              className="px-2 py-1 bg-(--app-card) border border-(--app-line) rounded text-sm"
             >
               Redo
             </button>
@@ -90,15 +90,15 @@ function App() {
         </header>
 
         <div className="grid grid-cols-[240px_1fr_300px] h-full overflow-hidden">
-          <div className="h-full overflow-y-auto bg-[var(--app-card)]">
+          <div className="h-full overflow-y-auto bg-(--app-card)">
             <Sidebar onDragStart={handleDragStart} />
           </div>
 
           <main
-            className="relative bg-[var(--app-card)] flex items-center justify-center overflow-hidden"
+            className="relative bg-(--app-card) flex items-center justify-center overflow-hidden"
             onPointerUp={handleCanvasDrop}
           >
-            <div className="bg-[var(--app-card)] border border-[var(--app-line)] rounded-lg w-[80%] h-[80%] p-4 overflow-auto space-x-4">
+            <div className="bg-(--app-card) border border-(--app-line) rounded-lg w-[80%] h-[80%] p-4 overflow-auto space-x-4">
               {renderTree(tree)}
             </div>
             {dragItem && (
@@ -111,7 +111,7 @@ function App() {
             )}
           </main>
 
-          <div className="h-full overflow-y-auto bg-[var(--app-card)]">
+          <div className="h-full overflow-y-auto bg-(--app-card)">
             <Inspector />
           </div>
         </div>

@@ -12,11 +12,11 @@ export default function Sidebar({ onDragStart }: SidebarProps) {
     const filtered = componentLibrary.filter((c) => c.label.toLowerCase().includes(query.toLowerCase()))
 
     return (
-        <aside className="border-r border-[var(--app-line)] p-4 overflow-y-auto bg-[var(--app-card)] text-[var(--app-fg)]">
+        <aside className="border-r border-(--app-line) p-4 overflow-y-auto bg-(--app-card) text-(--app-fg)">
             <input 
                 type="text"
                 placeholder="Search components..."
-                className="w-full mb-3 px-2 py-1 bg-[var(--app-card)] border border-[var(--app-line)] rounded text-sm text-[var(--app-fg)]"
+                className="w-full mb-3 px-2 py-1 bg-(--app-card) border border-(--app-line) rounded text-sm text-(--app-fg)"
                 value={query}
                 onChange={(e) => setQuery(e.target.value)} />
 
@@ -24,7 +24,7 @@ export default function Sidebar({ onDragStart }: SidebarProps) {
                 {filtered.map((item) => (
                     <div
                         key={item.id}
-                        className="p-2 bg-[var(--app-card)] border border-[var(--app-line)] rounded cursor-grab hover:bg-[var(--app-line)] transition"
+                        className="p-2 bg-(--app-card) border border-(--app-line) rounded cursor-grab hover:bg-(--app-line) transition"
                         onPointerDown={(e) => onDragStart(e, item)}
                         >
                         <div className="text-xs opacity-70 mb-1">{item.label}</div>

@@ -6,9 +6,9 @@ export type FontWeightInputProps = {
 export default function FontWeightInput({ value, onChange }: FontWeightInputProps) {
     return (
         <div className="mb-3">
-            <label className="block text-xs opacity-70 mb-1 text-[var(--app-fg)]">Font Weight</label>
+            <label className="block text-xs opacity-70 mb-1 text-(--app-fg)">Font Weight</label>
             <select
-                className="w-full px-2 py-1 bg-[var(--app-card)] border border-[var(--app-line)] rounded text-[var(--app-fg)]"
+                className="w-full px-2 py-1 bg-(--app-card) border border-(--app-line) rounded text-(--app-fg)"
                 value={value || ""}
                 onChange={(e) => onChange(e.target.value)}
             >

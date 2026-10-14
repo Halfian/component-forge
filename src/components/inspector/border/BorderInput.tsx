@@ -13,7 +13,7 @@ export default function BorderInput({ styles, onChange }: BorderInputProps) {
                 <input 
                     type="number"
                     min="0"
-                    className="w-full px-2 py-1 bg-[var(--app-card)] border border-[var(--app-line)] rounded text-[var(--app-fg)]"
+                    className="w-full px-2 py-1 bg-(--app-card) border border-(--app-line) rounded text-(--app-fg)"
                     value={parseInt(styles.borderWidth as string) || 0}
                     onChange={(e) =>
                         onChange("borderWidth", `${e.target.value}px`)
@@ -24,7 +24,7 @@ export default function BorderInput({ styles, onChange }: BorderInputProps) {
             <div>
                 <label className="block text-xs opacity-70 mb-1">Border Style</label>
                 <select
-                    className="w-full px-2 py-1 bg-[var(--app-card)] border border-[var(--app-line)] rounded text-[var(--app-fg)]"
+                    className="w-full px-2 py-1 bg-(--app-card) border border-(--app-line) rounded text-(--app-fg)"
                     value={styles.borderStyle || "solid"}
                     onChange={(e) => onChange("borderStyle", e.target.value)}
                 >
