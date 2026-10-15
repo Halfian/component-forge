@@ -98,6 +98,14 @@ function App() {
 
   return (
     <>
+      {/* Mobile Friendly Warning Overlay */}
+      <div className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-zinc-950 p-6 text-center md:hidden">
+        <span className="text-4xl mb-4">💻</span>
+        <h2 className="text-xl font-bold text-white mb-2">Desktop View Recommended</h2>
+        <p className="text-sm text-zinc-400 max-w-xs">
+          Component Forge requires a larger screen to drag, drop, and inspect layout trees effectively. Please switch to a desktop browser!
+        </p>
+      </div>
       <div className="h-screen w-screen grid grid-rows-[48px_1fr] bg-(--app-bg) text-(--app-fg)">
         <header className="border-b border-(--app-line) flex items-center justify-between px-4 py-2 bg-(--app-bg)">
           <h1 className="font-semibold mr-5">Component Forge</h1>
